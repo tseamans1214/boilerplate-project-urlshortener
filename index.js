@@ -32,6 +32,10 @@ app.post('/api/shorturl', function(req, res) {
             "short_url": urlArray.length });
 });
 
+app.get('/api/shortulr/:url?', function(req, res) {
+  res.send(urlArray(req.params.url-1));
+});
+
 app.listen(port, function() {
   console.log(`Listening on port ${port}`);
 });
