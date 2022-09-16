@@ -3,6 +3,12 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
+var bodyParser = require('body-parser')
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
+
 // Basic Configuration
 const port = process.env.PORT || 3000;
 
@@ -17,6 +23,13 @@ app.get('/', function(req, res) {
 // Your first API endpoint
 app.get('/api/hello', function(req, res) {
   res.json({ greeting: 'hello API' });
+});
+
+var urlArray = [];
+app.post('/api/shorturl', function(req, res) {
+  urlArray.push(req.body.url_input);
+  res.json({"original_url": req.body.url,
+            "short_url": urlArray.length });
 });
 
 app.listen(port, function() {
